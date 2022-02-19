@@ -1,0 +1,18 @@
+* {
+    border: solid grey 1px;
+    padding: 2px;
+    margin: 5px;
+}
+
+.container, .row, .entercon {
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    justify-content: space-evenly;
+}
+
+.enter {
+    flex-grow: 1;
+}
