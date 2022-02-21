@@ -16,3 +16,7 @@
 .enter {
     flex-grow: 1;
 }
+
+.display {
+    height: 20px;
+}
