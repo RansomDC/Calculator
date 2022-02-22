@@ -1,12 +1,15 @@
-const inputButtons = document.querySelectorAll('#input');
+const numberButtons = document.querySelectorAll('#number');
+const operatorButtons = document.querySelectorAll('#operator');
 const clearButton = document.querySelector('.clear');
 const display = document.querySelector('.display');
+const calculateButton = document.querySelector('.enter');
+const historyContainer = document.querySelector('.solutions');
+const history = document.createElement('p');
 let dispValue;
-
 
 // Add the buttons' class name (e.g. "1") to the display when clicked (Does not work for 
 //  "C" or "calculate")
-inputButtons.forEach((button) => {
+numberButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
         if(!dispValue) {
             dispValue = button.className;
@@ -18,20 +21,58 @@ inputButtons.forEach((button) => {
     })
 });
 
+operatorButtons.forEach((button) => {
+    button.addEventListener(('click'), () => {
+        if(!dispValue) {
+            dispValue = display.textContent;
+            dispValue += button.className;
+            display.textContent = dispValue;
+        } else {
+            dispValue += button.className;
+            display.textContent = dispValue;
+        }
+    })
+});
+
+clearButton.addEventListener('click', () => {
+    dispValue = "";
+    display.textContent = dispValue;
+});
+
+calculateButton.addEventListener('click', () => {
+    dispValue += "=";
+    const numbers = getDigitArr(arrayString(dispValue));
+    const operators = getOperatorArr(arrayString(dispValue));
+    display.textContent = calcTime(numbers, operators);
+    dispValue = "";
+})
 
 // Some test strings
 let testString1 = "2+3+4+5="; //14
 let testString2 = "23+45+67="; //135
 let testString3 = "234+567+8910=" //9711
+const testArray2 = ["23", "45", "67"];
+const testArray3 = ["*","+"];
+const testArray4 = ["2", "3", "4", "5", "6"]
+const testArray5 = ["+", "/", "*", "-"]
 
 const testArray1 = arrayString(testString3);
 
-
-
+// A function that takes an array of numbers, and an array of operators, and combines them. Using reduce() again to combine number array 
+//  element 0 with element 1 using operator array element 0. etc
+function calcTime(numberArr, operatorArr) {
+    let i = 0;
+    let calcResult = numberArr.reduce((first, second) => {
+        let retVal = operate(first, second, operatorArr[i]);
+        i++
+        return retVal;
+    });
+    return calcResult;
+}
 
 // A function that uses .reduce() (array.reduce(rfunc, [])) to check if each
 //  element is a number, and if it is add it to a variable. Then, when if eventually
-//  finds an operator, add that variable to an array. Creating an array of full numbers e.g. 23, 45 instead of 2, 3, 4, 5
+//  finds an operator, add that variable to an array. Creating an array of full numbers e.g. 23, 45 (from [2,3,+,4,5]) instead of 2, 3, 4, 5
 function getDigitArr(dispArr) {
     let combiner = "";
     const digits = dispArr.reduce((first, second) => {
@@ -60,23 +101,12 @@ function getOperatorArr(dispArr) {
     return operators;
 }
 
-
-
-
-
 function arrayString(string) {
     return string.split('');
 }
 
-
-
-clearButton.addEventListener('click', () => {
-    dispValue = "";
-    display.textContent = dispValue;
-});
-
 function add(number1, number2) {
-    return (number1 + number2);
+    return (+number1 + +number2);
 }
 
 function subtract(number1, number2) {
@@ -88,7 +118,11 @@ function multiply(number1, number2) {
 }
 
 function divide(number1, number2) {
-    return (number1 / number2);
+    if(number2 === "0"){
+        return "IMPOSSIBLE!"
+    } else {
+        return (number1 / number2);
+    }
 }
 
 function operate(number1, number2, operator) {
