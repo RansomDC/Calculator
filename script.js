@@ -1,5 +1,6 @@
 const numberButtons = document.querySelectorAll('#number');
 const operatorButtons = document.querySelectorAll('#operator');
+const decimalButton = document.querySelector('#decimal');
 const clearButton = document.querySelector('.clear');
 const display = document.querySelector('.display');
 const calculateButton = document.querySelector('.enter');
@@ -32,6 +33,21 @@ operatorButtons.forEach((button) => {
             display.textContent = dispValue;
         }
     })
+});
+
+decimalButton.addEventListener(('click'), () => {
+    if((dispValue.search(/[.]/g) === -1)) {
+        if(!dispValue) {
+            dispValue = display.textContent;
+            dispValue += '.';
+            display.textContent = dispValue;
+        } else {
+            dispValue += '.';
+            display.textContent = dispValue;
+        } 
+    } else {
+        
+    }
 });
 
 clearButton.addEventListener('click', () => {
@@ -128,16 +144,16 @@ function divide(number1, number2) {
 function operate(number1, number2, operator) {
     switch(operator) {
         case '+':
-            return add(number1, number2);
+            return add(number1, number2).toFixed(8);
             break;
         case '-':
-            return subtract(number1, number2);
+            return subtract(number1, number2).toFixed(8);
             break;
         case '*':
-            return multiply(number1, number2);
+            return multiply(number1, number2).toFixed(8);
             break;
         case '/':
-            return divide(number1, number2);
+            return divide(number1, number2).toFixed(8);
             break;
     }
 }
