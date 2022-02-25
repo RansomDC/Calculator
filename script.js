@@ -142,18 +142,44 @@ function divide(number1, number2) {
 }
 
 function operate(number1, number2, operator) {
+    let answer;
+    let check;
     switch(operator) {
         case '+':
-            return add(number1, number2).toFixed(8);
+            answer = add(number1, number2);
+            check = answer.toString();
+            if (check.length >= 10) {
+                return answer.toFixed(8);
+            } else {
+                return answer;
+            }
             break;
         case '-':
-            return subtract(number1, number2).toFixed(8);
+            answer = subtract(number1, number2);
+            check = answer.toString();
+            if (check.length >= 10) {
+                return answer.toFixed(8);
+            } else {
+                return answer;
+            }
             break;
         case '*':
-            return multiply(number1, number2).toFixed(8);
+            answer = multiply(number1, number2);
+            check = answer.toString();
+            if (check.length >= 10) {
+                return answer.toFixed(8);
+            } else {
+                return answer;
+            }
             break;
         case '/':
-            return divide(number1, number2).toFixed(8);
+            answer = divide(number1, number2);
+            check = answer.toString();
+            if (check.length >= 10) {
+                return answer.toFixed(8);
+            } else {
+                return answer;
+            }
             break;
     }
 }
