@@ -5,11 +5,9 @@ const clearButton = document.querySelector('.clear');
 const display = document.querySelector('.display');
 const calculateButton = document.querySelector('.enter');
 const historyContainer = document.querySelector('.solutions');
-const history = document.createElement('p');
 let dispValue;
 
-// Add the buttons' class name (e.g. "1") to the display when clicked (Does not work for 
-//  "C" or "calculate")
+// The next 5 event listeners add functions for when each of the different types of buttons are pressed.
 numberButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
         if(!dispValue) {
@@ -60,19 +58,11 @@ calculateButton.addEventListener('click', () => {
     const numbers = getDigitArr(arrayString(dispValue));
     const operators = getOperatorArr(arrayString(dispValue));
     display.textContent = calcTime(numbers, operators);
+    const history = document.createElement('p');
+    history.textContent = (dispValue + " " + display.textContent)
+    historyContainer.appendChild(history);
     dispValue = "";
 })
-
-// Some test strings
-let testString1 = "2+3+4+5="; //14
-let testString2 = "23+45+67="; //135
-let testString3 = "234+567+8910=" //9711
-const testArray2 = ["23", "45", "67"];
-const testArray3 = ["*","+"];
-const testArray4 = ["2", "3", "4", "5", "6"]
-const testArray5 = ["+", "/", "*", "-"]
-
-const testArray1 = arrayString(testString3);
 
 // A function that takes an array of numbers, and an array of operators, and combines them. Using reduce() again to combine number array 
 //  element 0 with element 1 using operator array element 0. etc
@@ -117,6 +107,7 @@ function getOperatorArr(dispArr) {
     return operators;
 }
 
+// split up a string into an array
 function arrayString(string) {
     return string.split('');
 }
@@ -141,6 +132,7 @@ function divide(number1, number2) {
     }
 }
 
+// This function takes two numbers and does an operation on them based on the operator provided
 function operate(number1, number2, operator) {
     let answer;
     let check;
