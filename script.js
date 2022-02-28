@@ -3,7 +3,7 @@ const operatorButtons = document.querySelectorAll('#operator');
 const decimalButton = document.querySelector('#decimal');
 const clearButton = document.querySelector('.clear');
 const display = document.querySelector('.display');
-const calculateButton = document.querySelector('.calculate');
+const calculateButton = document.querySelector('#calculate');
 const historyContainer = document.querySelector('.solutions');
 let dispValue;
 
@@ -20,6 +20,15 @@ numberButtons.forEach((button) => {
     })
 });
 
+// Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
+numberButtons.forEach((button) => {
+    button.addEventListener('keydown', (e) => {
+        if(e.key === "Enter") {
+            e.preventDefault();
+        }
+    })
+});
+
 numberButtons.forEach((button) => {
     window.addEventListener(('keyup'), (e) => {
         if(e.key === button.className) {
@@ -30,6 +39,16 @@ numberButtons.forEach((button) => {
                 dispValue += button.className;
                 display.textContent = dispValue;
             }
+        }
+    })
+});
+
+
+// Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
+operatorButtons.forEach((button) => {
+    button.addEventListener('keydown', (e) => {
+        if(e.key === "Enter") {
+            e.preventDefault();
         }
     })
 });
@@ -87,7 +106,45 @@ window.addEventListener('keyup', (e) => {
     }
 });
 
-calculateButton.addEventListener('click', () => {
+//calculateButton.addEventListener('click', () => {
+//    dispValue += "=";
+//    const numbers = getDigitArr(arrayString(dispValue));
+//    const operators = getOperatorArr(arrayString(dispValue));
+//    display.textContent = calcTime(numbers, operators);
+//    const history = document.createElement('p');
+//    history.textContent = (dispValue + " " + display.textContent)
+//    historyContainer.appendChild(history);
+//    dispValue = "";
+//})
+//
+//window.addEventListener('keyup', (e) => {
+//    if(e.key === "Enter") {
+//        dispValue += "=";
+//        const numbers = getDigitArr(arrayString(dispValue));
+//        const operators = getOperatorArr(arrayString(dispValue));
+//        display.textContent = calcTime(numbers, operators);
+//        const stuff = document.createElement('p');
+//        stuff.textContent = (dispValue + " " + display.textContent)
+//        historyContainer.appendChild(stuff);
+//        dispValue = "";
+//    }
+//});
+
+calculateButton.addEventListener('click', () => calcfunc());
+
+window.addEventListener('keydown', (e) => {
+    if(e.key === "Enter") {
+        e.preventDefault();
+    }
+})
+
+window.addEventListener('keyup', (e) => {
+    if (e.key === "Enter") {
+        calcfunc();
+    }
+})
+
+function calcfunc() {
     dispValue += "=";
     const numbers = getDigitArr(arrayString(dispValue));
     const operators = getOperatorArr(arrayString(dispValue));
@@ -96,23 +153,10 @@ calculateButton.addEventListener('click', () => {
     history.textContent = (dispValue + " " + display.textContent)
     historyContainer.appendChild(history);
     dispValue = "";
-})
+}
 
-window.addEventListener('keyup', (e) => {
-    if(e.key === "Enter") {
-        dispValue += "=";
-        const numbers = getDigitArr(arrayString(dispValue));
-        const operators = getOperatorArr(arrayString(dispValue));
-        display.textContent = calcTime(numbers, operators);
-        const history = document.createElement('p');
-        history.textContent = (dispValue + " " + display.textContent)
-        historyContainer.appendChild(history);
-        dispValue = "";
-    }
-})
-
-// A function that takes an array of numbers, and an array of operators, and combines them. Using reduce() again to combine number array 
-//  element 0 with element 1 using operator array element 0. etc
+// A function that takes an array of numbers, and an array of operators, and combines them. Using reduce() to combine the number array 
+//  element 0 with number array element 1 using operator array element 0. etc
 function calcTime(numberArr, operatorArr) {
     let i = 0;
     let calcResult = numberArr.reduce((first, second) => {
