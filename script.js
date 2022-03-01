@@ -6,7 +6,7 @@ const clearButton = document.querySelector('.clear');
 const display = document.querySelector('.display');
 const calculateButton = document.querySelector('#calculate');
 const historyContainer = document.querySelector('.solutions');
-let dispValue;
+let dispValue = "";
 
 
 // EVENT LISTENERS
@@ -33,20 +33,14 @@ numberButtons.forEach((button) => {
     })
 });
 
-// prints a number into the calculator display when a corresponding number key is pressed
+// Activates number buttons as though they were clicked when their corresponding key is pressed
 numberButtons.forEach((button) => {
-    window.addEventListener(('keydown'), (e) => {
+    window.addEventListener('keydown', (e) => {
         if(e.key === button.className) {
-            if(!dispValue) {
-                dispValue = button.className;
-                display.textContent = dispValue;
-            } else {
-                dispValue += button.className;
-                display.textContent = dispValue;
-            }
+            button.click();
         }
     })
-});
+})
 
 // prints an operator button into the calculator display when a button is pressed
 operatorButtons.forEach((button) => {
@@ -62,21 +56,14 @@ operatorButtons.forEach((button) => {
     })
 });
 
-// prints an operator into the calculator display when a corresponding operator key is pressed
+// Activates the operator buttons as though they were lcicked when their corersponding key is pressed
 operatorButtons.forEach((button) => {
-    window.addEventListener(('keydown'), (e) => {
+    window.addEventListener('keydown', (e) => {
         if(e.key === button.className) {
-            if(!dispValue) {
-                dispValue = display.textContent;
-                dispValue += button.className;
-                display.textContent = dispValue;
-            } else {
-                dispValue += button.className;
-                display.textContent = dispValue;
-            }
+            button.click();
         }
     })
-});
+})
 
 // prints a decimal to the display when the button is clicked, do not print if a decimal is already present
 decimalButton.addEventListener(('click'), () => {
@@ -96,25 +83,12 @@ decimalButton.addEventListener(('click'), () => {
     }
 });
 
-// prints a decimal to the display when the corresponding key is pressed.
-window.addEventListener(('keydown'), (e) => {
-    let testDisplay = display.textContent;
-    testDisplay += "=";
-    const tDarray = arrayString(testDisplay);
-    const numbers = getDigitArr(tDarray);
+// Activates the decimal button as though it had been clicked when pressing the "." key
+window.addEventListener('keydown', (e) => {
     if(e.key === ".") {
-        if((numbers[numbers.length - 1].search(/[.]/g) === -1)) {
-            if(!dispValue) {
-                dispValue = display.textContent;
-                dispValue += '.';
-                display.textContent = dispValue;
-            } else {
-                dispValue += '.';
-                display.textContent = dispValue;
-            } 
-        }
+        decimalButton.click();
     }
-});
+})
 
 // clears the display when the "c" button is clicked
 clearButton.addEventListener('click', () => {
@@ -123,22 +97,22 @@ clearButton.addEventListener('click', () => {
 });
 
 // clears the display when the "c" button is pressed
-window.addEventListener('keyup', (e) => {
+window.addEventListener('keydown', (e) => {
     if (e.key === "c") {
-        dispValue = "";
-        display.textContent = dispValue;
+        clearButton.click();
     }
 });
 
 // calls the calculate function when the calculate button is clicked
 calculateButton.addEventListener('click', () => calcfunc());
 
-// calls the calculate function when the "Enter" key is pressed
+// activates the calculate button when the "Enter" key is pressed
 window.addEventListener('keydown', (e) => {
-    if (e.key === "Enter") {
-        calcfunc();
+    if(e.key === "Enter") {
+        calculateButton.click();
     }
 })
+
 
 
 // FUNCTIONS
