@@ -8,7 +8,7 @@ const calculateButton = document.querySelector('#calculate');
 const historyContainer = document.querySelector('.solutions');
 let dispValue;
 
-// The next 5 event listeners add functions for when each of the different types of buttons are pressed.
+// Enables clicking buttons so that they print to the calculator display
 numberButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
         if(!dispValue) {
@@ -30,8 +30,9 @@ allButtons.forEach((button) => {
     })
 });
 
+// prints a number into the calculator display when a corresponding number key is pressed
 numberButtons.forEach((button) => {
-    window.addEventListener(('keyup'), (e) => {
+    window.addEventListener(('keydown'), (e) => {
         if(e.key === button.className) {
             if(!dispValue) {
                 dispValue = button.className;
@@ -44,16 +45,7 @@ numberButtons.forEach((button) => {
     })
 });
 
-
-// Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
-//operatorButtons.forEach((button) => {
-//    button.addEventListener('keydown', (e) => {
-//        if(e.key === "Enter") {
-//            e.preventDefault();
-//        }
-//    })
-//});
-
+// prints an operator button into the calculator display when a button is pressed
 operatorButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
         if(!dispValue) {
@@ -67,8 +59,9 @@ operatorButtons.forEach((button) => {
     })
 });
 
+// prints an operator into the calculator display when a corresponding operator key is pressed
 operatorButtons.forEach((button) => {
-    window.addEventListener(('keyup'), (e) => {
+    window.addEventListener(('keydown'), (e) => {
         if(e.key === button.className) {
             if(!dispValue) {
                 dispValue = display.textContent;
@@ -82,15 +75,9 @@ operatorButtons.forEach((button) => {
     })
 });
 
-
-// make a test value
-// make an array of the current numbers
-// check the most recent array number for a decimal
-// if it doesn't have one, allow a decimal
-// if it does have one, don't allow one.
-// if (numberArray[array.length -1].search(/[.]/g) === -1)
+// prints a decimal to the display when the button is clicked, do not print if a decimal is already present
 decimalButton.addEventListener(('click'), () => {
-    let testDisplay = dispValue;
+    let testDisplay = display.textContent;
     testDisplay += "=";
     const tDarray = arrayString(testDisplay);
     const numbers = getDigitArr(tDarray);
@@ -106,24 +93,33 @@ decimalButton.addEventListener(('click'), () => {
     }
 });
 
+// prints a decimal to the display when the corresponding key is pressed.
+window.addEventListener(('keydown'), (e) => {
+    let testDisplay = display.textContent;
+    testDisplay += "=";
+    const tDarray = arrayString(testDisplay);
+    const numbers = getDigitArr(tDarray);
+    if(e.key === ".") {
+        if((numbers[numbers.length - 1].search(/[.]/g) === -1)) {
+            if(!dispValue) {
+                dispValue = display.textContent;
+                dispValue += '.';
+                display.textContent = dispValue;
+            } else {
+                dispValue += '.';
+                display.textContent = dispValue;
+            } 
+        }
+    }
+});
 
-//if((dispValue.search(/[.]/g) === -1)) {
-//    if(!dispValue) {
-//        dispValue = display.textContent;
-//        dispValue += '.';
-//        display.textContent = dispValue;
-//    } else {
-//        dispValue += '.';
-//        display.textContent = dispValue;
-//    } 
-//}
-//});
-
+// clears the display when the "c" button is clicked
 clearButton.addEventListener('click', () => {
     dispValue = "";
     display.textContent = dispValue;
 });
 
+// clears the display when the "c" button is pressed
 window.addEventListener('keyup', (e) => {
     if (e.key === "c") {
         dispValue = "";
@@ -131,21 +127,20 @@ window.addEventListener('keyup', (e) => {
     }
 });
 
-
+// calls the calculate function when the calculate button is clicked
 calculateButton.addEventListener('click', () => calcfunc());
 
-window.addEventListener('keydown', (e) => {
-    if(e.key === "Enter") {
-        e.preventDefault();
-    }
-})
-
+// calls the calculate function when the "Enter" key is pressed
 window.addEventListener('keydown', (e) => {
     if (e.key === "Enter") {
         calcfunc();
     }
 })
 
+
+// FUNCTIONS
+
+//breaks up the display into an array, sorts the array into numbers and operators, operates on the numbers according to the operator. returns the value to the display
 function calcfunc() {
     if(dispValue === "") {return;}
     dispValue += "=";
@@ -206,6 +201,8 @@ function arrayString(string) {
     return string.split('');
 }
 
+
+// A series of very basic algebra functions.
 function add(number1, number2) {
     return (+number1 + +number2);
 }
