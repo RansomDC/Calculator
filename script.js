@@ -1,6 +1,7 @@
 const numberButtons = document.querySelectorAll('#number');
 const operatorButtons = document.querySelectorAll('#operator');
 const decimalButton = document.querySelector('#decimal');
+const allButtons = document.querySelectorAll('button');
 const clearButton = document.querySelector('.clear');
 const display = document.querySelector('.display');
 const calculateButton = document.querySelector('#calculate');
@@ -21,7 +22,7 @@ numberButtons.forEach((button) => {
 });
 
 // Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
-numberButtons.forEach((button) => {
+allButtons.forEach((button) => {
     button.addEventListener('keydown', (e) => {
         if(e.key === "Enter") {
             e.preventDefault();
@@ -45,13 +46,13 @@ numberButtons.forEach((button) => {
 
 
 // Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
-operatorButtons.forEach((button) => {
-    button.addEventListener('keydown', (e) => {
-        if(e.key === "Enter") {
-            e.preventDefault();
-        }
-    })
-});
+//operatorButtons.forEach((button) => {
+//    button.addEventListener('keydown', (e) => {
+//        if(e.key === "Enter") {
+//            e.preventDefault();
+//        }
+//    })
+//});
 
 operatorButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
@@ -81,8 +82,19 @@ operatorButtons.forEach((button) => {
     })
 });
 
+
+// make a test value
+// make an array of the current numbers
+// check the most recent array number for a decimal
+// if it doesn't have one, allow a decimal
+// if it does have one, don't allow one.
+// if (numberArray[array.length -1].search(/[.]/g) === -1)
 decimalButton.addEventListener(('click'), () => {
-    if((dispValue.search(/[.]/g) === -1)) {
+    let testDisplay = dispValue;
+    testDisplay += "=";
+    const tDarray = arrayString(testDisplay);
+    const numbers = getDigitArr(tDarray);
+    if((numbers[numbers.length - 1].search(/[.]/g) === -1)) {
         if(!dispValue) {
             dispValue = display.textContent;
             dispValue += '.';
@@ -93,6 +105,19 @@ decimalButton.addEventListener(('click'), () => {
         } 
     }
 });
+
+
+//if((dispValue.search(/[.]/g) === -1)) {
+//    if(!dispValue) {
+//        dispValue = display.textContent;
+//        dispValue += '.';
+//        display.textContent = dispValue;
+//    } else {
+//        dispValue += '.';
+//        display.textContent = dispValue;
+//    } 
+//}
+//});
 
 clearButton.addEventListener('click', () => {
     dispValue = "";
@@ -106,29 +131,6 @@ window.addEventListener('keyup', (e) => {
     }
 });
 
-//calculateButton.addEventListener('click', () => {
-//    dispValue += "=";
-//    const numbers = getDigitArr(arrayString(dispValue));
-//    const operators = getOperatorArr(arrayString(dispValue));
-//    display.textContent = calcTime(numbers, operators);
-//    const history = document.createElement('p');
-//    history.textContent = (dispValue + " " + display.textContent)
-//    historyContainer.appendChild(history);
-//    dispValue = "";
-//})
-//
-//window.addEventListener('keyup', (e) => {
-//    if(e.key === "Enter") {
-//        dispValue += "=";
-//        const numbers = getDigitArr(arrayString(dispValue));
-//        const operators = getOperatorArr(arrayString(dispValue));
-//        display.textContent = calcTime(numbers, operators);
-//        const stuff = document.createElement('p');
-//        stuff.textContent = (dispValue + " " + display.textContent)
-//        historyContainer.appendChild(stuff);
-//        dispValue = "";
-//    }
-//});
 
 calculateButton.addEventListener('click', () => calcfunc());
 
@@ -138,13 +140,14 @@ window.addEventListener('keydown', (e) => {
     }
 })
 
-window.addEventListener('keyup', (e) => {
+window.addEventListener('keydown', (e) => {
     if (e.key === "Enter") {
         calcfunc();
     }
 })
 
 function calcfunc() {
+    if(dispValue === "") {return;}
     dispValue += "=";
     const numbers = getDigitArr(arrayString(dispValue));
     const operators = getOperatorArr(arrayString(dispValue));
