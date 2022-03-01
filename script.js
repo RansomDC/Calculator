@@ -8,7 +8,19 @@ const calculateButton = document.querySelector('#calculate');
 const historyContainer = document.querySelector('.solutions');
 let dispValue;
 
-// Enables clicking buttons so that they print to the calculator display
+
+// EVENT LISTENERS
+
+// Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
+allButtons.forEach((button) => {
+    button.addEventListener('keydown', (e) => {
+        if(e.key === "Enter") {
+            e.preventDefault();
+        }
+    })
+});
+
+// Enables clicking number buttons so that they print to the calculator display
 numberButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
         if(!dispValue) {
@@ -17,15 +29,6 @@ numberButtons.forEach((button) => {
         } else {
             dispValue += button.className;
             display.textContent = dispValue;
-        }
-    })
-});
-
-// Prevents pressing "Enter" from triggering the last clicked on (highlighted) button.
-allButtons.forEach((button) => {
-    button.addEventListener('keydown', (e) => {
-        if(e.key === "Enter") {
-            e.preventDefault();
         }
     })
 });
@@ -201,20 +204,16 @@ function arrayString(string) {
     return string.split('');
 }
 
-
 // A series of very basic algebra functions.
 function add(number1, number2) {
     return (+number1 + +number2);
 }
-
 function subtract(number1, number2) {
     return (number1 - number2);
 }
-
 function multiply(number1, number2) {
     return (number1 * number2);
 }
-
 function divide(number1, number2) {
     if(number2 === "0"){
         return "IMPOSSIBLE!"
