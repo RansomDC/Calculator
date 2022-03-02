@@ -63,6 +63,7 @@ button:active {
 }
 
 .display {
+    margin-bottom: 20px;
     background-color: grey;
     border-radius: 20px;
     box-shadow: 1px 2px rgb(95, 95, 95);
@@ -73,3 +74,10 @@ button:active {
     border-radius: 20px;
 }
 
+#operator, .clear {
+    color: rgb(209, 97, 52);
+}
+
+.entercon {
+    border: none;
+}

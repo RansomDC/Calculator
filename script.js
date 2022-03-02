@@ -90,6 +90,15 @@ window.addEventListener('keydown', (e) => {
     }
 })
 
+// removes one character from the display when "Backspace" is pressed
+window.addEventListener('keydown', (e) => {
+    if(e.key === "Backspace") {
+        dispValue = display.textContent;
+        dispValue = dispValue.slice(0, (dispValue.length - 1));
+        display.textContent = dispValue;
+    }
+})
+
 // clears the display when the "c" button is clicked
 clearButton.addEventListener('click', () => {
     dispValue = "";
