@@ -8,40 +8,51 @@
     <title>Calculator</title>
 </head>
 <body>
-    
-    <div class="container">
-        <div class="instructions"></div>
-        <div class="calculator">
-            <div class="display"></div>
-            <div class="row">
-                <button id="number" class="7">7</button>
-                <button id="number" class="8">8</button>
-                <button id="number" class="9">9</button>
-                <button id="operator" class="+">+</button>
+    <div class="separator">
+        <div class="container">
+            <div class="instructions">
+                <h4>Welcome to the Calculator!</h4>
+                <ul>
+                    <li>This calculator will process calculations from left to right.</li>
+                    <li>Keyboard support is enabled, give it a try!</li>
+                    <li>Made a mistake? Try the Backspace key.</li>
+                    <li>Remember to never divide by zero...</li>
+
+                </ul>
             </div>
-            <div class="row">
-                <button id="number" class="4">4</button>
-                <button id="number" class="5">5</button>
-                <button id="number" class="6">6</button>
-                <button id="operator" class="-">-</button>
+            <div class="calculator">
+                <div class="display"></div>
+                <div class="row">
+                    <button id="number" class="7">7</button>
+                    <button id="number" class="8">8</button>
+                    <button id="number" class="9">9</button>
+                    <button id="operator" class="+">+</button>
+                </div>
+                <div class="row">
+                    <button id="number" class="4">4</button>
+                    <button id="number" class="5">5</button>
+                    <button id="number" class="6">6</button>
+                    <button id="operator" class="-">-</button>
+                </div>
+                <div class="row">
+                    <button id="number" class="1">1</button>
+                    <button id="number" class="2">2</button>
+                    <button id="number" class="3">3</button>
+                    <button id="operator" class="*">*</button>
+                </div>
+                <div class="row">
+                    <button id="number" class="0">0</button>
+                    <button class="clear">C</button>
+                    <button id="decimal" class=".">.</button>
+                    <button id="operator" class="/">/</button>
+                </div>
+               <div class="entercon">
+                   <button id="calculate">Calculate</button>
+               </div>
             </div>
-            <div class="row">
-                <button id="number" class="1">1</button>
-                <button id="number" class="2">2</button>
-                <button id="number" class="3">3</button>
-                <button id="operator" class="*">*</button>
-            </div>
-            <div class="row">
-                <button id="number" class="0">0</button>
-                <button class="clear">C</button>
-                <button id="decimal" class=".">.</button>
-                <button id="operator" class="/">/</button>
-            </div>
-           <div class="entercon">
-               <button id="calculate">Calculate</button>
-           </div>
+            <div class="solutions"></div>
         </div>
-        <div class="solutions"></div>
+        <div class="footer">Created by Ransom Cadorette for The Odin Project 2022</div>
     </div>
 
     <script src="script.js"></script>

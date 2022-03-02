@@ -198,7 +198,7 @@ function multiply(number1, number2) {
     return (number1 * number2);
 }
 function divide(number1, number2) {
-    if(number2 === "0"){
+    if(number2 == 0){
         return "IMPOSSIBLE!"
     } else {
         return (number1 / number2);
@@ -239,8 +239,9 @@ function operate(number1, number2, operator) {
             break;
         case '/':
             answer = divide(number1, number2);
+
             check = answer.toString();
-            if (check.length >= 10) {
+            if (check.length >= 10 && typeof(answer) === "number") {
                 return answer.toFixed(8);
             } else {
                 return answer;

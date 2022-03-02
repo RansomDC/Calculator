@@ -1,7 +1,19 @@
 * {
-    border: solid grey 1px;
     padding: 2px;
     margin: 5px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.separator {
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .container, .row, .entercon {
@@ -13,7 +25,7 @@
     justify-content: space-evenly;
 }
 
-.enter {
+#calculate {
     flex-grow: 1;
 }
 
@@ -27,11 +39,15 @@
     margin: 25px;
     padding: 15px;
     width: 145px;
+    height: 250px;
     filter: drop-shadow(3px 5px 4px black);
     box-shadow: 1px 1px 0px grey;
 }
 .solutions, .instructions {
     width: 250px;
+    background-color: grey;
+    border-radius: 10%;
+    box-shadow: 3px 3px 0px rgb(78, 78, 78);
 }
 
 button {
@@ -43,6 +59,7 @@ button {
     border-radius: 35%;
     margin: 2px;
     filter: drop-shadow(1px 2px 2px black);
+    border: solid grey 1px;
 }
 
 button:active {
@@ -80,4 +97,26 @@ button:active {
 
 .entercon {
     border: none;
+}
+
+h4 {
+    text-align: center;
+}
+
+li {
+    margin: 10px;
+}
+
+.instructions {
+    height: 320px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    color: rgb(99, 98, 98);
+    text-align: center;
 }
