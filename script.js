@@ -45,14 +45,20 @@ numberButtons.forEach((button) => {
 // prints an operator button into the calculator display when a button is pressed
 operatorButtons.forEach((button) => {
     button.addEventListener(('click'), () => {
-        if(!dispValue) {
+    if (!(display.textContent.search(/[+*/-]/) === -1)) {
+            calcfunc();
+            display.textContent += button.className;
             dispValue = display.textContent;
-            dispValue += button.className;
-            display.textContent = dispValue;
         } else {
-            dispValue += button.className;
-            display.textContent = dispValue;
-        }
+            if(!dispValue) {
+                dispValue = display.textContent;
+                dispValue += button.className;
+                display.textContent = dispValue;
+            } else {
+                dispValue += button.className;
+                display.textContent = dispValue;
+            }
+        }    
     })
 });
 
